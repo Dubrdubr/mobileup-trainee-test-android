@@ -4,8 +4,9 @@ import ru.dubr.traineetestandroid.data.network.CoinApi
 import ru.dubr.traineetestandroid.data.network.dto.CoinDto
 import ru.dubr.traineetestandroid.data.network.dto.CoinInfoDto
 import ru.dubr.traineetestandroid.domain.repository.CoinRepository
+import javax.inject.Inject
 
-class CoinRepositoryImpl(
+class CoinRepositoryImpl @Inject constructor(
     private val coinApi: CoinApi
 ) : CoinRepository {
 

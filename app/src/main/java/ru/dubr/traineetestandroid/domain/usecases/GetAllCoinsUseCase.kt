@@ -8,8 +8,9 @@ import ru.dubr.traineetestandroid.domain.Coin
 import ru.dubr.traineetestandroid.domain.repository.CoinRepository
 import ru.dubr.traineetestandroid.utils.Resource
 import java.io.IOException
+import javax.inject.Inject
 
-class GetAllCoinsUseCase(
+class GetAllCoinsUseCase @Inject constructor(
     private val repository: CoinRepository,
 ) {
 
