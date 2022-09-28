@@ -1,17 +1,19 @@
 package ru.dubr.traineetestandroid.data.repository
 
 import ru.dubr.traineetestandroid.data.network.CoinApi
+import ru.dubr.traineetestandroid.data.network.dto.CoinDto
+import ru.dubr.traineetestandroid.data.network.dto.CoinInfoDto
 import ru.dubr.traineetestandroid.domain.repository.CoinRepository
 
 class CoinRepositoryImpl(
     private val coinApi: CoinApi
 ) : CoinRepository {
 
-    override suspend fun getAllCoins(currency: String) {
-        coinApi.getAllCoins(currency)
+    override suspend fun getAllCoins(currency: String): List<CoinDto> {
+        return coinApi.getAllCoins(currency)
     }
 
-    override suspend fun getCoinInfo(coinId: String) {
-        coinApi.getCoinInfo(coinId)
+    override suspend fun getCoinInfo(coinId: String): CoinInfoDto {
+        return coinApi.getCoinInfo(coinId)
     }
 }
