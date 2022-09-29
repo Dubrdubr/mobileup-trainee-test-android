@@ -3,17 +3,19 @@ package ru.dubr.traineetestandroid.data.network
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.dubr.traineetestandroid.Api
 import ru.dubr.traineetestandroid.data.network.dto.CoinDto
 import ru.dubr.traineetestandroid.data.network.dto.CoinInfoDto
 
 interface CoinApi {
 
-    @GET("/coins/markets")
+    @GET("/api/v3/coins/markets")
     suspend fun getAllCoins(
-        @Query(QUERY_PARAM_VS_CURRENCY) currency: String,
+        @Query(QUERY_PARAM_VS_CURRENCY) vsCurrency: String = "usd",
         @Query(QUERY_PARAM_ORDER) order: String = "market_cap_desc",
         @Query(QUERY_PARAM_PER_PAGE) perPage: Int = NUMBER_PER_PAGE,
-        @Query(QUERY_PARAM_PAGE) page: Int = NUMBER_OF_PAGES
+        @Query(QUERY_PARAM_PAGE) page: Int = NUMBER_OF_PAGES,
+        @Query(QUERY_PARAM_SPARKLINE) sparkline: Boolean = false,
     ): List<CoinDto>
 
     @GET("/coins/{coinId}")
@@ -30,6 +32,7 @@ interface CoinApi {
         private const val QUERY_PARAM_ORDER = "order"
         private const val QUERY_PARAM_PER_PAGE = "per_page"
         private const val QUERY_PARAM_PAGE = "page"
+        private const val QUERY_PARAM_SPARKLINE = "sparkline"
 
         private const val PATH_PARAM_COIN_ID = "coinId"
         private const val QUERY_PARAM_LOCALIZATION = "localization"
