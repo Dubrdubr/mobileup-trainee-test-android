@@ -42,9 +42,9 @@ data class CoinInfoDto(
     @SerializedName("sentiment_votes_down_percentage")
     val sentimentVotesDownPercentage: Double,
     @SerializedName("market_cap_rank")
-    val marketCapRank: Int,
+    val marketCapRank: Double,
     @SerializedName("coingecko_rank")
-    val coingeckoRank: Int,
+    val coingeckoRank: Double,
     @SerializedName("coingecko_score")
     val coingeckoScore: Double,
     @SerializedName("developer_score")
