@@ -1,6 +1,5 @@
 package ru.dubr.traineetestandroid.presentation.coinlist
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,22 +41,26 @@ class CoinListFragment : Fragment(R.layout.fragment_coin_list) {
     private fun setupAdapter(binding: FragmentCoinListBinding) {
         coinAdapter = CoinAdapter(object : CoinAdapter.Listener {
             override fun onItemClick(coin: Coin) {
-                findNavController().navigate(
-                    R.id.action_coinListFragment_to_coinInfoFragment
-                )
+                onItemPressed(coin)
             }
         })
         binding.coinRecyclerView.adapter = coinAdapter
         binding.coinRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun renderResult(root: ViewGroup, state: CoinListViewModel.ViewState) {
+    private fun renderResult(root: ViewGroup, state: CoinListViewModel.ViewStateCoinList) {
         val binding = PartResultBinding.bind(root)
         coinAdapter.submitList(state.coinList)
         binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
         binding.errorContainer.visibility = if (state.showError) View.VISIBLE else View.GONE
         binding.tryAgainButton.setOnClickListener { viewModel.getAllCoins() }
+    }
 
+    private fun onItemPressed(coin: Coin) {
+        val direction = CoinListFragmentDirections.actionCoinListFragmentToCoinInfoFragment(
+            coin.id,
+            coin.name)
+        findNavController().navigate(direction)
     }
 
     override fun onDestroyView() {

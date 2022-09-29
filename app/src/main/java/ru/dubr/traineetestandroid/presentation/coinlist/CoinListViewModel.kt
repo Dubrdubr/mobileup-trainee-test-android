@@ -8,9 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import ru.dubr.traineetestandroid.data.network.dto.toCoin
 import ru.dubr.traineetestandroid.domain.Coin
-import ru.dubr.traineetestandroid.domain.repository.CoinRepository
 import ru.dubr.traineetestandroid.domain.usecases.GetAllCoinsUseCase
 import ru.dubr.traineetestandroid.utils.Const
 import ru.dubr.traineetestandroid.utils.DispatcherProvider
@@ -23,8 +21,8 @@ class CoinListViewModel @Inject constructor(
     private val dispatcher: DispatcherProvider,
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<ViewState>()
-    val state: LiveData<ViewState> = _state
+    private val _state = MutableLiveData<ViewStateCoinList>()
+    val state: LiveData<ViewStateCoinList> = _state
 
     init {
         viewModelScope.launch {
@@ -36,22 +34,22 @@ class CoinListViewModel @Inject constructor(
         getAllCoinsUseCase(currency).onEach { resource ->
             when (resource) {
                 is Resource.Loading -> {
-                    _state.postValue(ViewState(isLoading = true))
+                    _state.postValue(ViewStateCoinList(isLoading = true))
                 }
                 is Resource.Error -> {
-                    _state.postValue(ViewState(
+                    _state.postValue(ViewStateCoinList(
                         error = resource.error ?: "Unexpected error",
                         showError = true)
                     )
                 }
                 is Resource.Success -> {
-                    _state.postValue(ViewState(coinList = resource.data ?: emptyList()))
+                    _state.postValue(ViewStateCoinList(coinList = resource.data ?: emptyList()))
                 }
             }
         }.launchIn(CoroutineScope(dispatcher.io))
     }
 
-    data class ViewState(
+    data class ViewStateCoinList(
         val coinList: List<Coin> = emptyList(),
         val isLoading: Boolean = false,
         val showError: Boolean = false,
