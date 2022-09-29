@@ -3,4 +3,7 @@
     <string name="coin_icon">Coin Icon</string>
     <string name="error_message">Cлучилась какая-то ошибка :(\nПопробуем снова?</string>
     <string name="try_again">попробовать</string>
+    <string name="coin_info_icon">Coin Icon</string>
+    <string name="description">Описание</string>
+    <string name="categories">Категории</string>
 </resources>

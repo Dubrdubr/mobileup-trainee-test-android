@@ -7,15 +7,15 @@ data class CommunityData(
     @SerializedName("facebook_likes")
     val facebookLikes: Any,
     @SerializedName("twitter_followers")
-    val twitterFollowers: Int,
+    val twitterFollowers: Double,
     @SerializedName("reddit_average_posts_48h")
     val redditAveragePosts48h: Double,
     @SerializedName("reddit_average_comments_48h")
-    val redditAverageComments48h: Int,
+    val redditAverageComments48h: Double,
     @SerializedName("reddit_subscribers")
-    val redditSubscribers: Int,
+    val redditSubscribers: Double,
     @SerializedName("reddit_accounts_active_48h")
-    val redditAccountsActive48h: Int,
+    val redditAccountsActive48h: Double,
     @SerializedName("telegram_channel_user_count")
     val telegramChannelUserCount: Any
 )

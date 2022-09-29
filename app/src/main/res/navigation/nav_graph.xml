@@ -18,5 +18,12 @@
         android:id="@+id/coinInfoFragment"
         android:name="ru.dubr.traineetestandroid.presentation.coininfo.CoinInfoFragment"
         android:label="fragment_coin_info"
-        tools:layout="@layout/fragment_coin_info" />
+        tools:layout="@layout/fragment_coin_info" >
+        <argument
+            android:name="coinId"
+            app:argType="string" />
+        <argument
+            android:name="coinName"
+            app:argType="string" />
+    </fragment>
 </navigation>
