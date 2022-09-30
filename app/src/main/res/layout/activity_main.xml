@@ -12,13 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
@@ -32,6 +26,5 @@
         app:layout_constraintTop_toBottomOf="@id/toolBar"
         app:navGraph="@navigation/nav_graph"
         tools:context=".presentation.main.MainActivity" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

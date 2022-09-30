@@ -21,5 +21,6 @@
 
     <style name="CustomToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:elevation">8dp</item>
+        <item name="background">@color/white</item>
     </style>
 </resources>

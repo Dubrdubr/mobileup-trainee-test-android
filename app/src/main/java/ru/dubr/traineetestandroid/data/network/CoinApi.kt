@@ -3,7 +3,6 @@ package ru.dubr.traineetestandroid.data.network
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import ru.dubr.traineetestandroid.Api
 import ru.dubr.traineetestandroid.data.network.dto.CoinDto
 import ru.dubr.traineetestandroid.data.network.dto.CoinInfoDto
 

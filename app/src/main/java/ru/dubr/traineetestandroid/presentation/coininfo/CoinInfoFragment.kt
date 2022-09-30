@@ -5,6 +5,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,8 +22,8 @@ class CoinInfoFragment : Fragment() {
 
     private var fragmentCoinInfoBinding: FragmentCoinInfoBinding? = null
 
-    private val args by navArgs<CoinInfoFragmentArgs>()
     private val viewModel by viewModels<CoinInfoViewModel>()
+    private lateinit var mainActivity: AppCompatActivity
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +32,9 @@ class CoinInfoFragment : Fragment() {
     ): View {
         val binding = FragmentCoinInfoBinding.inflate(inflater, container, false)
         fragmentCoinInfoBinding = binding
+        mainActivity = activity as AppCompatActivity
+
+        mainActivity.supportActionBar?.show()
 
 //        binding.toolBar.setNavigationOnClickListener { findNavController().navigateUp() }
 //        binding.toolBar.setNavigationIcon(R.drawable.bitcoin)

@@ -7,4 +7,7 @@
     <string name="description">Описание</string>
     <string name="categories">Категории</string>
     <string name="error_image">Error Image</string>
+    <string name="usd">usd</string>
+    <string name="eur">eur</string>
+    <string name="list_crypto">Список криптовалют</string>
 </resources>

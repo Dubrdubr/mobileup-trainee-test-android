@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/toolBarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/list_crypto"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        app:checkedChip="@id/usdChip"
+        app:singleSelection="true"
+        app:selectionRequired="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/usdChip"
+            style="@style/ChipCustomStyle"
+            android:layout_width="89dp"
+            android:layout_height="wrap_content"
+            android:text="@string/usd" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/eurChip"
+            style="@style/ChipCustomStyle"
+            android:layout_width="89dp"
+            android:layout_height="wrap_content"
+            android:text="@string/eur" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+</LinearLayout>
