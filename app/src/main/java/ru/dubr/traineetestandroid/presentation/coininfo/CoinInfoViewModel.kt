@@ -39,13 +39,11 @@ class CoinInfoViewModel @Inject constructor(
                     _state.postValue(ViewStateCoinInfo(isLoading = true))
                 }
                 is Resource.Error -> {
-                    _state.postValue(ViewStateCoinInfo(
-                        error = resource.error ?: "Unexpected error",
-                        showError = true)
-                    )
+                    _state.postValue(ViewStateCoinInfo(showError = true))
                 }
                 is Resource.Success -> {
-                    _state.postValue(ViewStateCoinInfo(coinInfo = resource.data, showInfoContainer = true))
+                    _state.postValue(ViewStateCoinInfo(coinInfo = resource.data,
+                        showInfoContainer = true))
                 }
             }
         }.launchIn(CoroutineScope(dispatcher.io))
@@ -56,7 +54,6 @@ class CoinInfoViewModel @Inject constructor(
         val isLoading: Boolean = false,
         val showInfoContainer: Boolean = false,
         val showError: Boolean = false,
-        val error: String = "",
     )
 }
 

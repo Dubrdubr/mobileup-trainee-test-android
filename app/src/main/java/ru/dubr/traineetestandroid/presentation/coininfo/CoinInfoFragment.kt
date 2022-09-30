@@ -1,6 +1,5 @@
 package ru.dubr.traineetestandroid.presentation.coininfo
 
-import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -8,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import ru.dubr.traineetestandroid.R
 import ru.dubr.traineetestandroid.databinding.FragmentCoinInfoBinding
 import ru.dubr.traineetestandroid.databinding.PartResultBinding
 import ru.dubr.traineetestandroid.domain.CoinInfo
@@ -30,6 +31,9 @@ class CoinInfoFragment : Fragment() {
     ): View {
         val binding = FragmentCoinInfoBinding.inflate(inflater, container, false)
         fragmentCoinInfoBinding = binding
+
+//        binding.toolBar.setNavigationOnClickListener { findNavController().navigateUp() }
+//        binding.toolBar.setNavigationIcon(R.drawable.bitcoin)
 
         viewModel.state.observe(viewLifecycleOwner) {
             val coinInfo = it.coinInfo
@@ -63,7 +67,7 @@ class CoinInfoFragment : Fragment() {
             tryAgainButton.setOnClickListener { viewModel.getCoinInfo() }
         }
 
-        fragmentCoinInfoBinding?.infoContainer?.visibility =
+        fragmentCoinInfoBinding?.labelsGroup?.visibility =
             if (state.showInfoContainer) View.VISIBLE else View.GONE
     }
 

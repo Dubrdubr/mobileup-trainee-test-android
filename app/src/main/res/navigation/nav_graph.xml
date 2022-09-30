@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/coinListFragment"
         android:name="ru.dubr.traineetestandroid.presentation.coinlist.CoinListFragment"
-        android:label="fragment_coin_list"
-        tools:layout="@layout/fragment_coin_list" >
+        android:label="Список криптовалют"
+        tools:layout="@layout/fragment_coin_list">
         <action
             android:id="@+id/action_coinListFragment_to_coinInfoFragment"
             app:destination="@id/coinInfoFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/coinInfoFragment"
         android:name="ru.dubr.traineetestandroid.presentation.coininfo.CoinInfoFragment"
-        android:label="fragment_coin_info"
-        tools:layout="@layout/fragment_coin_info" >
+        android:label="{coinName}"
+        tools:layout="@layout/fragment_coin_info">
         <argument
             android:name="coinId"
             app:argType="string" />

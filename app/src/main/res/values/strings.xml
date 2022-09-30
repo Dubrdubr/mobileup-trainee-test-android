@@ -6,4 +6,5 @@
     <string name="coin_info_icon">Coin Icon</string>
     <string name="description">Описание</string>
     <string name="categories">Категории</string>
+    <string name="error_image">Error Image</string>
 </resources>

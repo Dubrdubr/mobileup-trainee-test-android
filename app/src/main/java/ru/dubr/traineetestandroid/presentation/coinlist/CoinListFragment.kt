@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -35,6 +36,8 @@ class CoinListFragment : Fragment(R.layout.fragment_coin_list) {
             renderResult(binding.root, viewState)
         }
 
+
+
         return binding.root
     }
 
@@ -57,6 +60,7 @@ class CoinListFragment : Fragment(R.layout.fragment_coin_list) {
     }
 
     private fun onItemPressed(coin: Coin) {
+//        (activity as AppCompatActivity).supportActionBar?.hide()
         val direction = CoinListFragmentDirections.actionCoinListFragmentToCoinInfoFragment(
             coin.id,
             coin.name)
