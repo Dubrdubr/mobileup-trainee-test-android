@@ -1,5 +1,7 @@
 package ru.dubr.traineetestandroid.presentation.adapters
 
+import android.graphics.Color
+import android.icu.number.NumberFormatter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +12,13 @@ import com.bumptech.glide.Glide
 import ru.dubr.traineetestandroid.R
 import ru.dubr.traineetestandroid.databinding.ItemCoinBinding
 import ru.dubr.traineetestandroid.domain.Coin
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
+import java.util.Locale.US
 
 class CoinAdapter(
-    private val listener: Listener
+    private val listener: Listener,
 ) : ListAdapter<Coin, CoinAdapter.CoinViewHolder>(CoinDiffCallback()), View.OnClickListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
@@ -37,21 +43,44 @@ class CoinAdapter(
     }
 
     class CoinViewHolder(
-        private val binding: ItemCoinBinding
+        private val binding: ItemCoinBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(coin: Coin) {
+
+            val numberFormat = getNumberFormat(coin.currency)
+
             binding.apply {
                 root.tag = coin
                 nameTextView.text = coin.name
                 symbolTextView.text = coin.symbol
-                priceTextView.text = coin.currentPrice.toString()
-                percentageTextView.text = coin.priceChangePercentage24h.toString()
+                priceTextView.text = numberFormat.format(coin.currentPrice)
+                setPercentageText(coin.priceChangePercentage24h)
                 Glide.with(iconImageView)
                     .load(coin.image)
                     .circleCrop()
                     .error(R.drawable.ic_coin_placeholder)
                     .into(iconImageView)
             }
+        }
+
+        private fun setPercentageText(changePercentage: Double) {
+            val context = binding.root.context
+
+            binding.percentageTextView.apply {
+                text = if (changePercentage < 0.0) {
+                    setTextColor(Color.parseColor("#EB5757"))
+                    context.getString(R.string.percentage_format_negative, changePercentage)
+                } else {
+                    setTextColor(Color.parseColor("#2A9D8F"))
+                    context.getString(R.string.percentage_format_positive, changePercentage)
+                }
+            }
+        }
+
+        private fun getNumberFormat(coinCurrency: String): NumberFormat {
+            val numberFormat = NumberFormat.getCurrencyInstance(Locale.getDefault())
+            numberFormat.currency = Currency.getInstance(coinCurrency.uppercase())
+            return numberFormat
         }
     }
 
@@ -68,5 +97,12 @@ class CoinAdapter(
 
     interface Listener {
         fun onItemClick(coin: Coin)
+    }
+
+    companion object {
+        private const val CURRENCY_USD = "usd"
+        private const val CURRENCY_EUR = "eur"
+        private const val CURRENCY_CODE_USD = "USD"
+        private const val CURRENCY_CODE_EUR = "EUR"
     }
 }

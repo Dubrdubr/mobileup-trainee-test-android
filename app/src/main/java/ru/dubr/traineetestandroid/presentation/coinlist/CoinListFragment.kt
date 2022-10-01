@@ -33,51 +33,55 @@ class CoinListFragment : Fragment(R.layout.fragment_coin_list) {
         savedInstanceState: Bundle?,
     ): View {
         val binding = FragmentCoinListBinding.inflate(inflater, container, false)
+        fragmentCoinListBinding = binding
 
         mainActivity = activity as AppCompatActivity
         mainActivity.supportActionBar?.hide()
 
-        setupAdapter(binding)
-        binding.chipToolbar.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
-            val chip = group.findViewById<Chip>(checkedIds.first())
-
-            if (chip == binding.chipToolbar.usdChip) {
-                viewModel.getAllCoins("usd")
-            }
-            if (chip == binding.chipToolbar.eurChip) {
-                viewModel.getAllCoins("eur")
-            }
-        }
+        setupAdapter()
 
         viewModel.state.observe(viewLifecycleOwner) { viewState ->
             renderResult(binding.root, viewState)
         }
+        binding.chipToolbar.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            val chip = group.findViewById<Chip>(checkedIds.first())
+            val currency = chip.text.toString()
+            if (currency.isNotBlank()) {
+                updateCoinList(currency)
+            }
+        }
         return binding.root
     }
 
-    private fun setupAdapter(binding: FragmentCoinListBinding) {
+    private fun setupAdapter() {
         coinAdapter = CoinAdapter(object : CoinAdapter.Listener {
             override fun onItemClick(coin: Coin) {
                 onItemPressed(coin)
             }
         })
-        binding.coinRecyclerView.adapter = coinAdapter
-        binding.coinRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        fragmentCoinListBinding?.coinRecyclerView?.apply {
+            adapter = coinAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun renderResult(root: ViewGroup, state: CoinListViewModel.ViewStateCoinList) {
         val binding = PartResultBinding.bind(root)
         coinAdapter.submitList(state.coinList)
-        binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
-        binding.errorContainer.visibility = if (state.showError) View.VISIBLE else View.GONE
+        binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.INVISIBLE
+        binding.errorContainer.visibility = if (state.showError) View.VISIBLE else View.INVISIBLE
         binding.tryAgainButton.setOnClickListener { viewModel.getAllCoins() }
     }
 
     private fun onItemPressed(coin: Coin) {
         val direction = CoinListFragmentDirections.actionCoinListFragmentToCoinInfoFragment(
-            coin.id,
-            coin.name)
+            coin.id, coin.name
+        )
         findNavController().navigate(direction)
+    }
+
+    private fun updateCoinList(currency: String) {
+        viewModel.getAllCoins(currency)
     }
 
     override fun onDestroyView() {

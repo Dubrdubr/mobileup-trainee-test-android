@@ -17,7 +17,7 @@ class GetAllCoinsUseCase @Inject constructor(
     operator fun invoke(currency: String): Flow<Resource<List<Coin>>> = flow {
         emit(Resource.Loading())
         try {
-            val coinList = repository.getAllCoins(currency).map { it.toCoin() }
+            val coinList = repository.getAllCoins(currency).map { it.toCoin(currency) }
             emit(Resource.Success(coinList))
         } catch (e: HttpException) {
             emit(Resource.Error("${e.code()}. ${e.message}")) // TODO: обернуть ошибку

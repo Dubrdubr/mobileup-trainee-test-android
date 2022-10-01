@@ -23,7 +23,6 @@ class CoinInfoViewModel @Inject constructor(
 
     private val navArgs = CoinInfoFragmentArgs.fromSavedStateHandle(savedStateHandle)
     private val coinId = navArgs.coinId
-    private val coinName = navArgs.coinName
 
     private val _state = MutableLiveData<ViewStateCoinInfo>()
     val state: LiveData<ViewStateCoinInfo> = _state

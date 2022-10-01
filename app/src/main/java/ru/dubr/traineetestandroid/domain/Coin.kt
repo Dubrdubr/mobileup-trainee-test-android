@@ -7,4 +7,5 @@ data class Coin(
     val image: String,
     val currentPrice: Double,
     val priceChangePercentage24h: Double,
+    val currency: String
 )

@@ -10,4 +10,6 @@
     <string name="usd">usd</string>
     <string name="eur">eur</string>
     <string name="list_crypto">Список криптовалют</string>
+    <string name="percentage_format_negative">%1$.2f%%</string>
+    <string name="percentage_format_positive">+%1$.2f%%</string>
 </resources>

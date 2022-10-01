@@ -16,13 +16,13 @@ data class CoinDto(
     @SerializedName("current_price")
     val currentPrice: Double,
     @SerializedName("market_cap")
-    val marketCap: Long,
+    val marketCap: Double,
     @SerializedName("market_cap_rank")
     val marketCapRank: Double,
     @SerializedName("fully_diluted_valuation")
-    val fullyDilutedValuation: Long,
+    val fullyDilutedValuation: Double,
     @SerializedName("total_volume")
-    val totalVolume: Long,
+    val totalVolume: Double,
     @SerializedName("high_24h")
     val high24h: Double,
     @SerializedName("low_24h")
@@ -60,13 +60,14 @@ data class CoinDto(
 )
 
 // Mapper
-fun CoinDto.toCoin(): Coin {
+fun CoinDto.toCoin(currency: String): Coin {
     return Coin(
         id = id,
         symbol = symbol,
         name = name,
         image = image,
         currentPrice = currentPrice,
-        priceChangePercentage24h = priceChangePercentage24h
+        priceChangePercentage24h = priceChangePercentage24h,
+        currency = currency
     )
 }
