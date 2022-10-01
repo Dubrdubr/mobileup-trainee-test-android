@@ -16,16 +16,19 @@ import ru.dubr.traineetestandroid.R
 import ru.dubr.traineetestandroid.databinding.FragmentCoinListBinding
 import ru.dubr.traineetestandroid.databinding.PartResultBinding
 import ru.dubr.traineetestandroid.domain.Coin
+import ru.dubr.traineetestandroid.presentation.Currency
 import ru.dubr.traineetestandroid.presentation.adapters.CoinAdapter
+import ru.dubr.traineetestandroid.utils.Const
 
 @AndroidEntryPoint
 class CoinListFragment : Fragment(R.layout.fragment_coin_list) {
 
-    private var fragmentCoinListBinding: FragmentCoinListBinding? = null
-
-    private val viewModel: CoinListViewModel by viewModels()
     private lateinit var coinAdapter: CoinAdapter
     private lateinit var mainActivity: AppCompatActivity
+
+    private var fragmentCoinListBinding: FragmentCoinListBinding? = null
+    private val viewModel: CoinListViewModel by viewModels()
+    private var currentCurrency = Const.DEFAULT_CURRENCY
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,19 +48,17 @@ class CoinListFragment : Fragment(R.layout.fragment_coin_list) {
         }
         binding.chipToolbar.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
             val chip = group.findViewById<Chip>(checkedIds.first())
-            val currency = chip.text.toString()
-            if (currency.isNotBlank()) {
-                updateCoinList(currency)
+            currentCurrency = chip.text.toString()
+            if (currentCurrency.isNotBlank()) {
+                updateCoinList(currentCurrency)
             }
         }
         binding.apply {
             swipeRefresh.setOnRefreshListener {
                 swipeRefresh.isRefreshing = false
-                val currentCurrency = chipToolbar.chipGroup.getCurrentCurrency()
-                if (currentCurrency != "null") {
-                    viewModel.getAllCoins(currentCurrency)
+                if (currentCurrency.isNotBlank()) {
+                    updateCoinList(currentCurrency)
                 }
-
             }
         }
 
@@ -78,10 +79,18 @@ class CoinListFragment : Fragment(R.layout.fragment_coin_list) {
 
     private fun renderResult(root: ViewGroup, state: CoinListViewModel.ViewStateCoinList) {
         val binding = PartResultBinding.bind(root)
+        binding.apply {
+            if (state.isLoading) {
+                progressBar.visibility = View.VISIBLE
+                fragmentCoinListBinding?.swipeRefresh?.isEnabled = false
+            } else {
+                progressBar.visibility = View.INVISIBLE
+                fragmentCoinListBinding?.swipeRefresh?.isEnabled = true
+            }
+            errorContainer.visibility = if (state.showError) View.VISIBLE else View.INVISIBLE
+            tryAgainButton.setOnClickListener { updateCoinList(currentCurrency) }
+        }
         coinAdapter.submitList(state.coinList)
-        binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.INVISIBLE
-        binding.errorContainer.visibility = if (state.showError) View.VISIBLE else View.INVISIBLE
-        binding.tryAgainButton.setOnClickListener { viewModel.getAllCoins() }
     }
 
     private fun onItemPressed(coin: Coin) {

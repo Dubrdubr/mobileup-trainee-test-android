@@ -36,9 +36,6 @@ class CoinInfoFragment : Fragment() {
 
         mainActivity.supportActionBar?.show()
 
-//        binding.toolBar.setNavigationOnClickListener { findNavController().navigateUp() }
-//        binding.toolBar.setNavigationIcon(R.drawable.bitcoin)
-
         viewModel.state.observe(viewLifecycleOwner) {
             val coinInfo = it.coinInfo
             renderResult(binding.root, it)

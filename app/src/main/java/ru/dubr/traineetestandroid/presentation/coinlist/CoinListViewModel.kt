@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.dubr.traineetestandroid.domain.Coin
 import ru.dubr.traineetestandroid.domain.usecases.GetAllCoinsUseCase
@@ -26,11 +27,11 @@ class CoinListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getAllCoins()
+            getAllCoins(Const.DEFAULT_CURRENCY)
         }
     }
 
-    fun getAllCoins(currency: String = Const.DEFAULT_CURRENCY) {
+    fun getAllCoins(currency: String) {
         getAllCoinsUseCase(currency).onEach { resource ->
             when (resource) {
                 is Resource.Loading -> {
