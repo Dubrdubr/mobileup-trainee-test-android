@@ -78,7 +78,7 @@ class CoinAdapter(
         }
 
         private fun getNumberFormat(coinCurrency: String): NumberFormat {
-            val numberFormat = NumberFormat.getCurrencyInstance(Locale.getDefault())
+            val numberFormat = NumberFormat.getCurrencyInstance(Locale.US)
             numberFormat.currency = Currency.getInstance(coinCurrency.uppercase())
             return numberFormat
         }
