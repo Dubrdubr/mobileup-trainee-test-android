@@ -98,11 +98,4 @@ class CoinAdapter(
     interface Listener {
         fun onItemClick(coin: Coin)
     }
-
-    companion object {
-        private const val CURRENCY_USD = "usd"
-        private const val CURRENCY_EUR = "eur"
-        private const val CURRENCY_CODE_USD = "USD"
-        private const val CURRENCY_CODE_EUR = "EUR"
-    }
 }

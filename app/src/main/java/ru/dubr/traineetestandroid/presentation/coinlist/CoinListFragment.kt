@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import ru.dubr.traineetestandroid.R
 import ru.dubr.traineetestandroid.databinding.FragmentCoinListBinding
@@ -50,6 +50,17 @@ class CoinListFragment : Fragment(R.layout.fragment_coin_list) {
                 updateCoinList(currency)
             }
         }
+        binding.apply {
+            swipeRefresh.setOnRefreshListener {
+                swipeRefresh.isRefreshing = false
+                val currentCurrency = chipToolbar.chipGroup.getCurrentCurrency()
+                if (currentCurrency != "null") {
+                    viewModel.getAllCoins(currentCurrency)
+                }
+
+            }
+        }
+
         return binding.root
     }
 
@@ -82,6 +93,15 @@ class CoinListFragment : Fragment(R.layout.fragment_coin_list) {
 
     private fun updateCoinList(currency: String) {
         viewModel.getAllCoins(currency)
+    }
+
+    // Get current currency symbol from chips
+    private fun ChipGroup.getCurrentCurrency(): String {
+        val chipId = fragmentCoinListBinding?.chipToolbar?.chipGroup?.checkedChipId
+        val chip = chipId?.let {
+            this.findViewById<Chip>(it)
+        }
+        return chip?.text.toString()
     }
 
     override fun onDestroyView() {
