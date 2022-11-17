@@ -1,9 +1,11 @@
 package ru.dubr.traineetestandroid.data.network.dto
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Platforms(
-    @SerializedName("")
-    val x: String
+    @Json(name = "")
+    val x: String?
 )

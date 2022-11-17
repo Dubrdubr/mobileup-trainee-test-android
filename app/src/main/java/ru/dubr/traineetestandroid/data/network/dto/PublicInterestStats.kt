@@ -1,11 +1,13 @@
 package ru.dubr.traineetestandroid.data.network.dto
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class PublicInterestStats(
-    @SerializedName("alexa_rank")
-    val alexaRank: Double,
-    @SerializedName("bing_matches")
-    val bingMatches: Any
+    @Json(name = "alexa_rank")
+    val alexaRank: Int?,
+    @Json(name = "bing_matches")
+    val bingMatches: Any?
 )

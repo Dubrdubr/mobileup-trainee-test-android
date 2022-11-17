@@ -1,13 +1,11 @@
 package ru.dubr.traineetestandroid.data.network.dto
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Image(
-    @SerializedName("thumb")
-    val thumb: String,
-    @SerializedName("small")
-    val small: String,
-    @SerializedName("large")
-    val large: String
+    val thumb: String?,
+    val small: String?,
+    val large: String?
 )

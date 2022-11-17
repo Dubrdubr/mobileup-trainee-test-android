@@ -3,7 +3,7 @@ package ru.dubr.traineetestandroid.domain.usecases
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
-import ru.dubr.traineetestandroid.data.network.dto.toCoinInfo
+import ru.dubr.traineetestandroid.data.network.dto.CoinInfoDto
 import ru.dubr.traineetestandroid.domain.CoinInfo
 import ru.dubr.traineetestandroid.domain.repository.CoinRepository
 import ru.dubr.traineetestandroid.utils.Resource
@@ -25,5 +25,16 @@ class GetCoinInfoUseCase @Inject constructor(
             emit(Resource.Error(""))
         }
 
+    }
+
+    private fun CoinInfoDto.toCoinInfo(): CoinInfo {
+        return CoinInfo(
+            id = id,
+            symbol = symbol,
+            name = name,
+            categories = categories,
+            description = description.en,
+            image = image
+        )
     }
 }

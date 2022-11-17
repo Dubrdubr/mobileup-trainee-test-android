@@ -1,11 +1,13 @@
 package ru.dubr.traineetestandroid.data.network.dto
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class X(
-    @SerializedName("decimal_place")
-    val decimalPlace: Any,
-    @SerializedName("contract_address")
-    val contractAddress: String
+    @Json(name = "decimal_place")
+    val decimalPlace: Any?,
+    @Json(name = "contract_address")
+    val contractAddress: String?
 )

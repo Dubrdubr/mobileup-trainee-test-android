@@ -1,29 +1,30 @@
 package ru.dubr.traineetestandroid.data.network.dto
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Links(
-    @SerializedName("homepage")
-    val homepage: List<String>,
-    @SerializedName("blockchain_site")
-    val blockchainSite: List<String>,
-    @SerializedName("official_forum_url")
-    val officialForumUrl: List<String>,
-    @SerializedName("chat_url")
-    val chatUrl: List<String>,
-    @SerializedName("announcement_url")
-    val announcementUrl: List<String>,
-    @SerializedName("twitter_screen_name")
-    val twitterScreenName: String,
-    @SerializedName("facebook_username")
-    val facebookUsername: String,
-    @SerializedName("bitcointalk_thread_identifier")
-    val bitcointalkThreadIdentifier: Any,
-    @SerializedName("telegram_channel_identifier")
-    val telegramChannelIdentifier: String,
-    @SerializedName("subreddit_url")
-    val subredditUrl: String,
-    @SerializedName("repos_url")
-    val reposUrl: ReposUrl
+    val homepage: List<String?>?,
+    @Json(name = "blockchain_site")
+    val blockchainSite: List<String?>?,
+    @Json(name = "official_forum_url")
+    val officialForumUrl: List<String?>?,
+    @Json(name = "chat_url")
+    val chatUrl: List<String?>?,
+    @Json(name = "announcement_url")
+    val announcementUrl: List<String?>?,
+    @Json(name = "twitter_screen_name")
+    val twitterScreenName: String?,
+    @Json(name = "facebook_username")
+    val facebookUsername: String?,
+    @Json(name = "bitcointalk_thread_identifier")
+    val bitcointalkThreadIdentifier: Any?,
+    @Json(name = "telegram_channel_identifier")
+    val telegramChannelIdentifier: String?,
+    @Json(name = "subreddit_url")
+    val subredditUrl: String?,
+    @Json(name = "repos_url")
+    val reposUrl: ReposUrl?
 )

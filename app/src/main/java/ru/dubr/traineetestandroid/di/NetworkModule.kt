@@ -7,7 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.dubr.traineetestandroid.data.network.CoinApi
 import ru.dubr.traineetestandroid.utils.Const
 import javax.inject.Singleton
@@ -21,7 +21,6 @@ class NetworkModule {
     fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BODY)
 
-    // клиент OkHttp с интерсептором
     @Singleton
     @Provides
     fun provideClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
@@ -34,7 +33,7 @@ class NetworkModule {
     fun provideApi(client: OkHttpClient): CoinApi {
         return Retrofit.Builder()
             .baseUrl(Const.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
             .client(client)
             .build()
             .create(CoinApi::class.java)

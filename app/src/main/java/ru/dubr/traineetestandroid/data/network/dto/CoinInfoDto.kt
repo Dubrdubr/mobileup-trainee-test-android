@@ -1,78 +1,59 @@
 package ru.dubr.traineetestandroid.data.network.dto
 
 
-import com.google.gson.annotations.SerializedName
-import ru.dubr.traineetestandroid.domain.CoinInfo
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class CoinInfoDto(
-    @SerializedName("id")
     val id: String,
-    @SerializedName("symbol")
     val symbol: String,
-    @SerializedName("name")
     val name: String,
-    @SerializedName("asset_platform_id")
-    val assetPlatformId: Any,
-    @SerializedName("platforms")
-    val platforms: Platforms,
-    @SerializedName("detail_platforms")
-    val detailPlatforms: DetailPlatforms,
-    @SerializedName("block_time_in_minutes")
-    val blockTimeInMinutes: Int,
-    @SerializedName("hashing_algorithm")
-    val hashingAlgorithm: String,
-    @SerializedName("categories")
+    @Json(name = "asset_platform_id")
+    val assetPlatformId: Any?,
+    val platforms: Platforms?,
+    @Json(name = "detail_platforms")
+    val detailPlatforms: DetailPlatforms?,
+    @Json(name = "block_time_in_minutes")
+    val blockTimeInMinutes: Int?,
+    @Json(name = "hashing_algorithm")
+    val hashingAlgorithm: String?,
     val categories: List<String>,
-    @SerializedName("public_notice")
-    val publicNotice: Any,
-    @SerializedName("additional_notices")
-    val additionalNotices: List<Any>,
-    @SerializedName("description")
+    @Json(name = "public_notice")
+    val publicNotice: Any?,
+    @Json(name = "additional_notices")
+    val additionalNotices: List<Any?>?,
     val description: Description,
-    @SerializedName("links")
-    val links: Links,
-    @SerializedName("image")
+    val links: Links?,
     val image: Image,
-    @SerializedName("country_origin")
-    val countryOrigin: String,
-    @SerializedName("genesis_date")
-    val genesisDate: String,
-    @SerializedName("sentiment_votes_up_percentage")
-    val sentimentVotesUpPercentage: Double,
-    @SerializedName("sentiment_votes_down_percentage")
-    val sentimentVotesDownPercentage: Double,
-    @SerializedName("market_cap_rank")
-    val marketCapRank: Double,
-    @SerializedName("coingecko_rank")
-    val coingeckoRank: Double,
-    @SerializedName("coingecko_score")
-    val coingeckoScore: Double,
-    @SerializedName("developer_score")
-    val developerScore: Double,
-    @SerializedName("community_score")
-    val communityScore: Double,
-    @SerializedName("liquidity_score")
-    val liquidityScore: Double,
-    @SerializedName("public_interest_score")
-    val publicInterestScore: Double,
-    @SerializedName("community_data")
-    val communityData: CommunityData,
-    @SerializedName("public_interest_stats")
-    val publicInterestStats: PublicInterestStats,
-    @SerializedName("status_updates")
-    val statusUpdates: List<Any>,
-    @SerializedName("last_updated")
-    val lastUpdated: String,
+    @Json(name = "country_origin")
+    val countryOrigin: String?,
+    @Json(name = "genesis_date")
+    val genesisDate: String?,
+    @Json(name = "sentiment_votes_up_percentage")
+    val sentimentVotesUpPercentage: Double?,
+    @Json(name = "sentiment_votes_down_percentage")
+    val sentimentVotesDownPercentage: Double?,
+    @Json(name = "market_cap_rank")
+    val marketCapRank: Int?,
+    @Json(name = "coingecko_rank")
+    val coingeckoRank: Int?,
+    @Json(name = "coingecko_score")
+    val coingeckoScore: Double?,
+    @Json(name = "developer_score")
+    val developerScore: Double?,
+    @Json(name = "community_score")
+    val communityScore: Double?,
+    @Json(name = "liquidity_score")
+    val liquidityScore: Double?,
+    @Json(name = "public_interest_score")
+    val publicInterestScore: Double?,
+    @Json(name = "community_data")
+    val communityData: CommunityData?,
+    @Json(name = "public_interest_stats")
+    val publicInterestStats: PublicInterestStats?,
+    @Json(name = "status_updates")
+    val statusUpdates: List<Any?>?,
+    @Json(name = "last_updated")
+    val lastUpdated: String?
 )
-
-// Mapper
-fun CoinInfoDto.toCoinInfo(): CoinInfo {
-    return CoinInfo(
-        id = id,
-        symbol = symbol,
-        name = name,
-        categories = categories,
-        description = description.en,
-        image = image
-    )
-}

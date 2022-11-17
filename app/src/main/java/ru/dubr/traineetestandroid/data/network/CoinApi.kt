@@ -17,7 +17,7 @@ interface CoinApi {
         @Query(QUERY_PARAM_SPARKLINE) sparkline: Boolean = false,
     ): List<CoinDto>
 
-    @GET("/api/v3//coins/{coinId}")
+    @GET("/api/v3/coins/{coinId}")
     suspend fun getCoinInfo(
         @Path(PATH_PARAM_COIN_ID) coinId: String,
         @Query(QUERY_PARAM_LOCALIZATION) localization: Boolean = false,
